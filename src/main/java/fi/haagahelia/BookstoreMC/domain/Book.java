@@ -1,12 +1,31 @@
 package fi.haagahelia.BookstoreMC.domain;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Book {
+    @Id // Sets Id as primary key
+    @GeneratedValue(strategy = GenerationType.AUTO) // Automatic next number
     private long id;
     private String title;
     private String author;
     private int publicationYear;
     private int isbn;
     private double price;
+
+    public Book() {
+    }
+
+    public Book(String title, String author, int publicationYear, int isbn, double price) {
+        this.title = title;
+        this.author = author;
+        this.publicationYear = publicationYear;
+        this.isbn = isbn;
+        this.price = price;
+    }
 
     public long getId() {
         return id;
