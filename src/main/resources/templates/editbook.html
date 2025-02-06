@@ -7,9 +7,9 @@
 </head>
 
 <body>
-    <h1>Add Book</h1>
+    <h1>Edit Book</h1>
     <div class="container">
-        <form th:object="${book}" th:action="@{save}" action="#" method="post">
+        <form th:object="${book}" th:action="@{/save/{id}(id=${book.id})}" action="#" method="post">
             <label for="author">Author</label>
             <input type="text" id="author" th:field="*{author}" />
 
@@ -30,7 +30,7 @@
 
             <div style="clear: both; display: block; height: 10px;"></div>
 
-            <input type="submit" value="Save"></input>
+            <input type="submit" value="Save Changes"></input>
         </form>
     </div>
 </body>

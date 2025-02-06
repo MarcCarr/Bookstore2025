@@ -44,4 +44,20 @@ public class BookController {
         repository.deleteById(id);
         return "redirect:/booklist";
     }
+
+    // Edit existing book
+    @GetMapping("/edit/{id}")
+    public String editBook(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("book", repository.findById(id).get()); // .get() Extracts actual Book. If no book is found
+                                                                   // -> Error
+        return "editbook";
+    }
+
+    @PostMapping("/save/{id}")
+    public String saveEditedBook(@PathVariable("id") Long id, @ModelAttribute Book book) {
+        book.setId(id);
+        repository.save(book);
+        return ("redirect:/booklist");
+    }
+
 }
