@@ -30,6 +30,12 @@
 
             <div style="clear: both; display: block; height: 10px;"></div>
 
+            <label for="deplist">Category</label>
+            <select id="deplist" th:field="*{category}" class="form-control">
+                <option th:each="category: ${categories}" th:value="${category.categoryid}" th:text="${category.name}">
+                </option>
+            </select>
+
             <input type="submit" value="Save"></input>
         </form>
     </div>
