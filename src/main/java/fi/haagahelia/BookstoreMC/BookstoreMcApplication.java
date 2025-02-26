@@ -36,6 +36,7 @@ public class BookstoreMcApplication {
 
 			repository.save(new Book("Agent Sonya", "Ben Macintyre", 2016, 771236, 20, category1));
 			repository.save(new Book("Mythos", "Stephen Fry", 2009, 779461, 15, category3));
+			repository.save(new Book("New Moon", "Stephanie Meyer", 2007, 774719, 25.5, category1));
 
 			log.info("fetch all books");
 			for (Book book : repository.findAll()) {
