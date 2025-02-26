@@ -18,19 +18,19 @@ public class BookRestController {
         this.bookRepository = bookRepository;
     }
 
-    // RESTful service to get all students
+    // RESTful service to get all books
     @GetMapping("/books")
     public List<Book> bookListRest() {
         return (List<Book>) bookRepository.findAll();
     }
 
-    // RESTful service to get student by id
+    // RESTful service to get book by id
     @GetMapping("/books/{id}")
     public Optional<Book> findBookRest(@PathVariable("id") Long bookId) {
         return bookRepository.findById(bookId);
     }
 
-    // RESTful service to save new student
+    // RESTful service to save new book
     @PostMapping("/books")
     public Book saveNewBookRest(@RequestBody Book book) {
         return bookRepository.save(book);
