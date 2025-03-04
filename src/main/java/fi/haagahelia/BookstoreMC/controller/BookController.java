@@ -1,6 +1,7 @@
 package fi.haagahelia.BookstoreMC.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,11 @@ public class BookController {
 
     @Autowired
     private CategoryRepository cRepository;
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
 
     @GetMapping("/booklist")
     public String booklist(Model model) {
@@ -42,6 +48,7 @@ public class BookController {
     }
 
     // Deleting a book
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/delete/{id}")
     public String deleteBook(@PathVariable("id") Long id, Model model) {
         repository.deleteById(id);
