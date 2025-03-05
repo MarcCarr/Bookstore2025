@@ -48,7 +48,7 @@ public class BookController {
     }
 
     // Deleting a book
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/delete/{id}")
     public String deleteBook(@PathVariable("id") Long id, Model model) {
         repository.deleteById(id);
@@ -56,6 +56,7 @@ public class BookController {
     }
 
     // Edit existing book
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/edit/{id}")
     public String editBook(@PathVariable("id") Long id, Model model) {
         model.addAttribute("book", repository.findById(id).get()); // .get() Extracts actual Book. If no book is found
@@ -63,6 +64,7 @@ public class BookController {
         return "editbook";
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/save/{id}")
     public String saveEditedBook(@PathVariable("id") Long id, @ModelAttribute Book book) {
         book.setId(id);

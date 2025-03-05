@@ -7,11 +7,15 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import fi.haagahelia.BookstoreMC.domain.BookstoreRepository;
 import fi.haagahelia.BookstoreMC.domain.Book;
 import fi.haagahelia.BookstoreMC.domain.Category;
 import fi.haagahelia.BookstoreMC.domain.CategoryRepository;
+import fi.haagahelia.BookstoreMC.domain.User;
+import fi.haagahelia.BookstoreMC.domain.UserRepository;
 
 @SpringBootApplication
 public class BookstoreMcApplication {
@@ -22,7 +26,8 @@ public class BookstoreMcApplication {
 	}
 
 	@Bean
-	public CommandLineRunner demo(BookstoreRepository repository, CategoryRepository cRepository) {
+	public CommandLineRunner demo(BookstoreRepository repository, CategoryRepository cRepository,
+			UserRepository userRepository, PasswordEncoder passwordEncoder) {
 		return (args) -> {
 			log.info("Add some categories");
 
@@ -42,7 +47,18 @@ public class BookstoreMcApplication {
 			for (Book book : repository.findAll()) {
 				log.info(book.toString());
 			}
+
+			User user1 = new User("user", passwordEncoder.encode("user"), "ROLE_USER", "user@test.fi");
+			User user2 = new User("admin", passwordEncoder.encode("admin"), "ROLE_ADMIN", "admin@test.fi");
+
+			userRepository.save(user1);
+			userRepository.save(user2);
 		};
+	}
+
+	@Bean
+	public PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 
 }
