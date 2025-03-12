@@ -12,4 +12,6 @@ public interface BookstoreRepository extends CrudRepository<Book, Long> {
 
     List<Book> findByTitle(@Param("title") String title);
 
+    List<Book> findByAuthor(String author);
+
 }
